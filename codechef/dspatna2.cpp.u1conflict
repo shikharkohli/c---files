@@ -1,0 +1,61 @@
+#include<iostream>
+#include<cstdio>
+
+using namespace std;
+
+int main()
+{
+	int w,x,y,z;int t=4;
+	while(1)
+	{
+		char str[100];
+		if(scanf("%s",str)<0) return 0;
+		//printf("%s\n",str);
+		if(sscanf(str,"%d.%d.%d.%d",&w,&x,&y,&z)<=0) return 0;
+		//printf("%d\n",x);
+		//cout<<w<<","<<x<<","<<y<<","<<z;
+		if(w>255 || x>255 || y>255 || z>255)	
+		{
+			printf("Invalid\n");
+			continue;
+		}
+		if(w==127)
+		{
+			printf("Invalid\n");
+			continue;
+		}
+		if(w<=126 && w>=1)
+		{
+			printf("Class A\n");
+			continue;
+		}
+		if(w>=128 && w<=191)
+		{
+			printf("Class B\n");
+			continue;
+		}
+		if(w>=192 && w<=223)
+		{
+			printf("Class C\n");
+			continue;
+		}
+		if(w>=224 && w<=239)
+		{
+			printf("Class D\n");
+			continue;
+		}
+		if(w>=240 && w<=255)
+		{
+			if(z>254)
+			{
+				printf("Invalid\n");
+				continue;
+			}
+			printf("Class E\n");
+			
+			continue;
+		}
+		printf("Invalid\n");
+	}
+	return 0;
+}

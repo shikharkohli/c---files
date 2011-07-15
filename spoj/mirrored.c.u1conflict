@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+int main()
+{
+       printf("Ready\n");//<<endl;
+       char a,b;
+       //freopen("input.txt","r",stdin);
+       while(1)//(a=getchar() && b=getchar()) && (a!=' ' && b!=' '))
+       {
+           a=getchar();
+           b=getchar();
+           //printf("-->%c %c\n",a,b);
+           if(a==' ' && b==' ')
+               return 0;
+           if((a=='b' && b=='d') || (a=='p' && b=='q')\
+               || (a=='d' && b=='b') || (a=='q' && b=='p'))
+           {
+               printf("Mirrored pair\n");
+           }
+           else
+               printf("Ordinary pair\n");
+            a=getchar();
+        }
+        return 0;
+}
+

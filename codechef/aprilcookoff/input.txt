@@ -1,0 +1,12 @@
+5 6
+html123456 text/html
+htm text/html
+png image/png
+svg image/svg+xml
+txt text/plain
+index.html123456
+this.file.has.lots.of.dots.txt
+nodotsatall
+virus.exe
+dont.let.the.png.fool.you
+case.matters.svg

@@ -1,0 +1,55 @@
+#include<iostream>
+#include<map>
+#include<vector>
+#include<algorithm>
+
+struct chars
+{
+	char ch;
+	double p;
+};
+
+bool compare(chars i,chars j)
+{
+	if(i.p>j.p)
+		return true;
+	else
+		return false;
+}
+
+using namespace std;
+
+int main()
+{	
+	string input;
+	getline(cin,input,'\n');
+    map<char,int> charp;
+	for(int i=0;i<input.length();i++)
+		charp[input[i]]++;
+	vector<chars> plist;
+	for(map<char,int>::iterator i=charp.begin();i!=charp.end();i++)
+	{
+		chars temp;
+		temp.ch=i->first;
+		temp.p=(double)i->second/input.length();
+		plist.push_back(temp);
+	}
+	//cout<<i->first<<","<<i->second<<endl;
+	sort(plist.begin(),plist.end(),compare);
+	for(int i=0;i<plist.size();i++)
+	{
+		cout<<plist[i].ch<<" "<<plist[i].p<<endl;
+	}
+	double ub=1.0,lb=0.0;
+	for(int i=0;i<input.length();i++)
+	{
+		for(int k=0;k<plist.size() && plist[k].ch!=input[i];k++)
+		{
+			ub+=(ub-lb)*plist[i].p;
+		}
+		lb=ub;
+		ub+=(ub-lb)*plist[i].p;
+	}
+	cout<<"Lower bound "<<lb<<" Upper bound "<<ub<<endl;
+	return 0;
+}

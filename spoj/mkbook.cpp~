@@ -1,0 +1,39 @@
+#include<cstdio>
+
+int main()
+{
+     int a,b;int k=0;
+     int num[100][2];num[0][0]=1;
+     int list[10];
+     do{
+	    scanf("%d",&num[++k][0]);
+	    if(num[k][0]==0) break;
+	    scanf("%d",&num[k][1]);
+     }while(num[k-1][0]!=0);
+     for(int i=1;i<k;i++)
+     {
+	   if(num[i][0]>num[i][1])
+	   	continue;
+	   int l=0;
+	   while(l<10)
+	   	list[l++]=0;
+	   for(int j=num[i][0];j<=num[i][1];j++)
+	   {
+		  int temp=j;
+		  while(temp!=0)
+		  {
+			  list[temp%10]+=1;
+		  	  temp/=10;
+	          }
+	    }
+	    l=0;
+	    printf("Case %d ",i);
+	    while(l<10)
+	    {
+		printf("%d:%d ",l,list[l]);
+		l++;
+    	    }
+	    printf("\n");
+      }
+    return 0;
+}

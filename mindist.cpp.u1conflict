@@ -1,0 +1,30 @@
+#include<iostream>
+#include<cmath>
+#include<cstdio>
+
+using namespace std;
+
+int main()
+{
+	int x[2000],y[2000];double sumx=0.0,sumy=0.0;
+	for(int i=0;i<5;i++)
+	{
+		cin>>x[i];
+		cin>>y[i];
+		sumx+=x[i];
+		sumy+=y[i];
+	}
+	sumx/=5.0;sumy/=5.0;
+	double sum=0.0;
+	cout<<sumx<<","<<sumy<<endl;
+	double temp;
+	for(int i=0;i<5;i++)
+	{
+		temp=sqrt((sumx-x[i])*(sumx-x[i])+(sumy-y[i])*(sumy-y[i]));
+		sum+=temp;
+		cout<<temp<<endl;
+	}
+	cout<<sum<<endl;
+	printf("%0.10f\n",sum);
+	return 0;
+}

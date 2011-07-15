@@ -1,0 +1,58 @@
+#include<cstdio>
+#include<cmath>
+#include<vector>
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+	vector<long long int> sq;
+	int t;
+	scanf("%d",&t);
+	for(long long int i=0;i<5*100000000;i++)
+		sq.push_back((i+2)*(i+2));
+	vector<int> sqf;
+	for(int i=4;i<5*10000;i++)
+		{
+			int flag=0;
+			for(int j=0;sq[j]<=i && !flag && j<sq.size();j++)
+			{
+				if(i%sq[j]==0)
+				{	
+					flag=1;
+				}
+			}
+			if(flag==0)
+			{	
+				sqf.push_back(i);cout<<i<<endl;
+			}
+		}
+	while(t--)
+	{
+		int a,b;
+		scanf("%d",&a);
+		scanf("%d",&b);
+		long long int sum=0;
+		
+		for(long long int i=a;i<=b;i++)
+		{
+			int flagf=0;
+			for(int j=0;j<sq.size() && sq[j]<=i && !flagf;j++)
+			{
+				if(i%sq[j]==0)
+					flagf=1;
+			}
+			if(flagf==0)
+				sum+=i;
+		
+				
+			/*if(sqf[i] >= a && sqf[i] <= b)
+				count+=sqf[i];
+			if(sqf[i]>b)
+				break;*/
+		}
+		printf("%lld\n",sum);
+	}
+	return 0;
+}

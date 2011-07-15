@@ -1,0 +1,17 @@
+import math
+
+while True:
+    try:
+        k = int(raw_input(""))
+    except:
+        continue
+    if k==-1:
+        break
+    temp = math.factorial(2*k)
+    temp /= math.factorial(k+1)*math.factorial(k)
+    print temp
+
+def main():
+    return 0
+
+main()
