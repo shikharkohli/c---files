@@ -1,3 +1,4 @@
+//Print not completely working
 #include<iostream>
 #include<cstring>
 
@@ -89,7 +90,8 @@ int main()
 	trie T;
 	T.insertword("shikhar");
 	T.insertword("shikhark");
-	//T.findword("shikhar");
+	T.findword("shikha");
 	T.print();
+    cout<<endl;
 	return 0;
 }
