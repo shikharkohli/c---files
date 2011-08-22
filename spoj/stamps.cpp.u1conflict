@@ -1,0 +1,50 @@
+//TODO
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+
+using namespace std;
+
+unsigned int dp[1000004];
+
+inline int filldp(int arr[],int n,int k)
+{
+    dp[0]=0;
+    for(int i=1;i<=n+1;i+=1)
+    {
+        for(int j=0;j<k;j++)
+        {
+            if(dp[i]+arr[j]>=n && i-arr[j]>=0)
+                dp[i]=min(dp[i],dp[i-arr[j]]+1);
+        }
+        if(dp[i]==10000000)
+            dp[i]=dp[i-1];
+    }
+}
+
+int main()
+{
+    int t;
+    int n,k;
+    int arr[1000];
+    scanf("%d",&t);
+    int temp=t;
+    while(t--) {
+        scanf("%d%d",&n,&k);
+        for(int i=0;i<=n;i++)
+            dp[i]=10000000;
+        for(int i=0;i<k;i++)
+            scanf("%d",&arr[i]);
+        sort(arr,arr+k);
+        filldp(arr,n,k);
+        if(n==100)
+        {
+            for(int i=0;i<=n+1;i++)
+                cout<<i<<"-->"<<dp[i]<<endl;
+        }
+        printf("Scenario #%d:\n",temp-t);
+        dp[n]>k?printf("impossible\n"):printf("%d\n",dp[n]);
+    }
+    return 0;
+}

@@ -27,7 +27,7 @@ int main()
             printf("%lld\n",n);
             continue;
         }
-        queue<long long int> q;
+        queue<int> q;
         q.push(1);
         while(1)
         {

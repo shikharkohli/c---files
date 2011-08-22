@@ -1,7 +1,7 @@
 //Binary search in a rotated array, without rotating it back
 #include<iostream>
 
-const int size=5;
+const int size=7;
 
 using namespace std;
 
@@ -24,7 +24,7 @@ void binary_search(int arr[],int lo,int hi,int value)
         cout<<value<<" not found!"<<endl;
 }
 
-int find_max(int arr[],int hi,int lo)
+int find_max(int arr[],int lo,int hi)
 {
     int mid=(lo+hi)/2;
     while(arr[mid+1]>arr[mid]) {
@@ -39,20 +39,15 @@ int find_max(int arr[],int hi,int lo)
 
 int main()
 {
-    int arr[]={3,4,7,1,2};
-    int hi=0,lo=0;
-    for(int i=0;i<5;i++) {
-        if(arr[i]>arr[hi])
-            hi=i;
-        if(arr[i]<arr[lo])
-            lo=i;
-    }
-    int mid=find_max(arr,0,4);
+    int arr[]={5,6,7,8,1,2,3};
+    int hi=size-1,lo=0;
+    int mid=find_max(arr,0,size);
     int value;
     cin>>value;
+    cout<<"!"<<mid<<"!"<<endl;
     if(value>=arr[lo] && value<=arr[mid])
         binary_search(arr,lo,mid,value);
-    else if(value>=arr[mid] && value<=arr[hi])
-        binary_search(arr,mid,hi-1,value);
+    else if(value>=arr[mid+1] && value<=arr[hi])
+        binary_search(arr,mid,hi,value);
     return 0;
 }
