@@ -24,8 +24,10 @@ void ways(int sum,int coins[],int num_of_coins,int pos=0)
 
 int main()
 {
-    int coins[] = {1,2,5,10,20,50,100,200};
-    ways(200,coins,8);
+    int coins[99];// = {1,2,5,10,20,50,100,200};
+    for(int i=0;i<99;i++)
+        coins[i] = i+1;
+    ways(100,coins,99);
     cout<<totway<<endl;
     return 0;
 }

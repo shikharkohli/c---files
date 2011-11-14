@@ -1,120 +1,83 @@
-#include <iostream>
-#include <math.h>
-#include <list>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <stdlib.h>
-#include <memory.h>
-#include <map>
-#include <stack>
-#include <queue>
-#include <set>
-#include <stdio.h>
-#include <assert.h>
-
-using namespace std;
-#define SET(a,n) memset(a,n,sizeof(a));
-#define FOR(a,b,c) for(int a=b;a<c;++a)
-#define GET(a) scanf("%d",&a)
-
-typedef long long int LL;
-typedef vector<int> VI;
-
+#include<iostream>
+#include<cstdio>
+#define MAX 4000000
 using namespace std;
 
-//globals
-#define MAX 100005
-int tree[4*MAX],flip[4*MAX],N;
-int q,a,b,c;
+int flip[MAX];
+int tree[MAX];
 
-
-void refresh(int v,int H,int T)
-{
+void refresh(int v,int H,int T) {
     flip[v]=1-flip[v];
     tree[v]=T-H+1-tree[v];
     return;
 }
 
-void update(int v,int H,int T)
+void update(int v,int H,int T,int a,int b)
 {
     if(flip[v]) {
         if(H!=T) {
-            refresh((v<<1)+1,H,(H+T)>>1);
-            refresh((v<<1)+2,((H+T)>>1) + 1,T);
+            refresh(2*v+1,H,(H+T)/2);
+            refresh(2*v+2,(H+T)/2+1,T);
         }
-        flip[v]=0;
     }
-
-    if(H>=a && T<=b) {
+    if(H>=a && T<=b) { //set the flip flag for lazy propagation
+                       //so that if a child node is queried next
+                       //its values are changed
         flip[v]=1;
         tree[v]=T-H+1-tree[v];
         return;
     }
-
-    int M = (H+T)>>1;
-
+    int M=(H+T)/2;
     if(M>=a) {
-        update(2*v+1,H,M);
+        update(2*v+1,H,M,a,b);
     }
     if(M+1<=b) {
-        update(2*v+2,M+1,T);
+        update(2*v+2,M+1,T,a,b);
     }
-
     tree[v]=tree[2*v+1]+tree[2*v+2];
-    return;
 }
 
-void query(int v,int H,int T,int& ans)
+void query(int v,int H,int T,int a,int b,int &ans)
 {
     if(flip[v]) {
         if(H!=T) {
-            refresh((v<<1)+1,H,(H+T)>>1);
-            refresh((v<<1)+2,((H+T)>>1) + 1,T);
+            refresh(v*2+1,H,(H+T)/2);
+            refresh(v*2+2,(H+T)/2 + 1,T);
         }
         flip[v]=0;
     }
-
     if(H>=a && T<=b) {
-        ans=tree[v];
+        ans = tree[v];
         return;
     }
-
-    int M = (H+T)>>1;
-
+    int mid=(H+T)/2;
     int ans1,ans2;
     ans1=ans2=0;
-
-    if(M>=a) {
-        query(2*v+1,H,M,ans1);
+    if(mid>=a) {
+        query(2*v+1,H,mid,a,b,ans1);
     }
-    if(M+1<=b) {
-        query(2*v+2,M+1,T,ans2);
+    if(mid+1<=b) {
+        query(2*v+2,mid+1,T,a,b,ans2);
     }
     ans=ans1+ans2;
     return;
 }
 
+    
 int main()
 {
-   //freopen("i.txt","r",stdin);
-
-    GET(N);
-    GET(q);
-
-    SET(tree,0);
-    SET(flip,0);
-
-    FOR(i,0,q) {
+    int n,q;
+    scanf("%d",&n);
+    scanf("%d",&q);int a,b,c;
+    for(int i=0;i<q;i++) {
         scanf("%d %d %d",&c,&a,&b);
-        a++;
-        b++;
+        a++,b++;
         if(c==0) {
-            update(0,1,N);
-         } else {
+            update(0,1,MAX,a,b);
+        }
+        else {
             int ans;
-            query(0,1,N,ans);
+            query(0,1,MAX,a,b,ans);
             printf("%d\n",ans);
         }
     }
